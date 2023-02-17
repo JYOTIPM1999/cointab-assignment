@@ -43,13 +43,12 @@ const UserSchema = mongoose.Schema({
     date: String,
     age: Number,
   },
-
   phone: String,
   cell: String,
-  id: {
-    name: String,
-    value: String,
-  },
+  //   id: {
+  //     name: String,
+  //     value: String,
+  //   },
   picture: {
     large: String,
     medium: String,
