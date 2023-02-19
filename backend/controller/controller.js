@@ -7,7 +7,9 @@ const Users = async (req, res) => {
     userData("https://randomuser.me/api/?results=80")
       .then((data) => UserModel.insertMany(data))
       .then((data) =>
-        res.status(200).json({ status: "Success", count: data.length })
+        res
+          .status(200)
+          .json({ status: "Success", usr: data, count: data.length })
       );
   } catch (e) {
     res.status(500).json({ status: "Error", message: e.message });

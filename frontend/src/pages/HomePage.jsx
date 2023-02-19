@@ -1,9 +1,13 @@
 import { Box, Button, Flex, Image, useToast } from "@chakra-ui/react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import DetailsPage from "./DetailsPage";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   const [deleteUsers, setDeleteUsers] = useState(false);
   const toast = useToast();
   const Toasting = (title, desc, pos, status) => {
@@ -48,7 +52,7 @@ const HomePage = () => {
     });
   };
   const handleDetails = () => {
-    console.log("Yes");
+    navigate("/details");
   };
 
   return (
