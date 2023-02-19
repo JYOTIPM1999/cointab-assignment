@@ -1,23 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Image,
 } from "@chakra-ui/react";
 import axios from "axios";
+import { userContext } from "../ContextAPI/Context";
 
 const DetailsPage = () => {
-  useEffect(() => {
-    axios.get("http://localhost:8080/users/getdata").then((res) => {});
-  }, []);
-
+  const { allUsers, setAllUsers } = useContext(userContext);
+  console.log(allUsers);
   return (
     <TableContainer>
       <Table variant="striped" colorScheme="orange">

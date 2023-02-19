@@ -1,14 +1,16 @@
 import { Box, Button, Flex, Image, useToast } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DetailsPage from "./DetailsPage";
+import { userContext } from "../ContextAPI/Context";
 
 const HomePage = () => {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
-
   const [deleteUsers, setDeleteUsers] = useState(false);
+  const navigate = useNavigate();
+  const { setAllUsers } = useContext(userContext);
+
   const toast = useToast();
   const Toasting = (title, desc, pos, status) => {
     toast({
@@ -33,6 +35,8 @@ const HomePage = () => {
 
     setLoading(true);
     axios.post("http://localhost:8080/users/savedata").then((res) => {
+      console.log(res.data.usr);
+      setAllUsers(res.data.usr);
       setLoading(false);
       Toasting(
         "Successfully Fetched",
@@ -46,6 +50,7 @@ const HomePage = () => {
   const handleDelete = () => {
     setDeleteUsers(true);
     axios.delete("http://localhost:8080/users/deletedata").then((res) => {
+      setAllUsers([]);
       setDeleteUsers(false);
       Toasting("Users deleted", "All Users data deleted", "buttom", "error");
       console.log(res.data);
