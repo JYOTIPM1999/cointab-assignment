@@ -4,6 +4,7 @@ const {
   UsersCount,
   DeleteUsers,
   FilteredUsers,
+  GetUsers,
 } = require("../controller/controller");
 
 const router = express.Router();
@@ -18,5 +19,7 @@ router.route("/filter/:page").post(FilteredUsers);
 
 // Delete all data of users
 router.route("/deletedata").delete(DeleteUsers);
+
+router.route("/getusers").get(GetUsers);
 
 module.exports = router;

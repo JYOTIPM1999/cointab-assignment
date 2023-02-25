@@ -8,8 +8,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
-import { Grid } from "react-loader-spinner";
-import React, { useContext, useState } from "react";
+import { Dna, Grid } from "react-loader-spinner";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import DetailsPage from "./DetailsPage";
@@ -26,6 +26,13 @@ const HomePage = () => {
     count,
     setCount,
   } = useContext(userContext);
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/users/getusers").then((res) => {
+      setAllUsers(res.data.User);
+      setCount(res.data.User.length);
+    });
+  }, [count]);
 
   const toast = useToast();
   const Toasting = (title, desc, pos, status) => {
@@ -44,11 +51,10 @@ const HomePage = () => {
       return Toasting(
         "Error while fetching",
         "Fething takes time, wait for it to complete...",
-        "left",
+        "top",
         "error"
       );
     }
-
     setLoading(true);
     axios.post("http://localhost:8080/users/savedata").then((res) => {
       // console.log(res.data.usr);
@@ -58,7 +64,7 @@ const HomePage = () => {
       Toasting(
         "Successfully Fetched",
         `count is ${res.data.count}`,
-        "right",
+        "top",
         "success"
       );
     });
@@ -70,14 +76,13 @@ const HomePage = () => {
       setAllUsers([]);
       setCount(0);
       setDeleteUsers(false);
-      Toasting("Users deleted", "All Users data deleted", "buttom", "error");
+      Toasting("Users deleted", "All Users data deleted", "top", "error");
       console.log(res.data);
     });
   };
   const handleDetails = () => {
     navigate("/details");
   };
-  console.log(count);
   return (
     <Box m={"auto"} textAlign={"center"}>
       <Image src="/cointab.png" m={"auto"} />
@@ -92,45 +97,66 @@ const HomePage = () => {
           )}
         </Button>
         <Box>
-          {count === 0 && <Text color={"red"}>Please fetch first</Text>}
+          {count === 0 && (
+            <Text fontWeight={"bold"} color={"red"}>
+              Please fetch first
+            </Text>
+          )}
           <Button isDisabled={count === 0} onClick={handleDelete}>
             Delete Users
           </Button>
         </Box>
         <Box>
-          {count === 0 && <Text color={"red"}>Please fetch first</Text>}
+          {count === 0 && (
+            <Text fontWeight={"bold"} color={"red"}>
+              Please fetch first
+            </Text>
+          )}
           <Button isDisabled={count === 0} onClick={handleDetails}>
             Details User Page
           </Button>
         </Box>
       </Flex>
       <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      {loading ? (
-        <Text fontWeight={"bold"} color={"red"} textAlign="center">
-          {/* <CircularProgress isIndeterminate color="green.500" /> */}
-          {/* Fething takes time, wait for it to complete... */}
-          <br />
-          <Grid
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="grid-loading"
-            radius="12.5"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-          <br />
-        </Text>
-      ) : (
-        <Text fontWeight={"bold"} color={"green"}>
-          User already fetched you can fetch again...
-        </Text>
-      )}
+
+      <Box>
+        {loading ? (
+          <Text display={"inline-block"} fontWeight={"bold"} color={"red"}>
+            <Dna
+              visible={true}
+              height="350"
+              width="350"
+              ariaLabel="dna-loading"
+              wrapperStyle={{}}
+              wrapperClass="dna-wrapper"
+            />
+          </Text>
+        ) : count === 0 ? (
+          <>
+            <Text fontWeight={"bold"} color={"red"}>
+              No user available, fetch users first...
+            </Text>
+            <Image
+              display={"inline-block"}
+              w={"20%"}
+              src={"./box.svg"}
+              alt="404"
+            />
+          </>
+        ) : (
+          <Box>
+            <Text fontWeight={"bold"} color={"green"}>
+              User already fetched you can fetch again...
+            </Text>
+            <Image
+              display={"inline-block"}
+              w={"50%"}
+              src={"./start.png"}
+              alt="404"
+            />
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 };

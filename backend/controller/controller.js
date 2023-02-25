@@ -13,16 +13,15 @@ const Users = async (req, res) => {
   }
 };
 
-// const GetUsers = async (req, res) => {
-//   try {
-//     const users = await UserModel.find().limit(10);
-//     res
-//       .status(200)
-//       .json({ status: "Success", length: users.length, User: users });
-//   } catch (e) {
-//     res.status(500).json({ status: "Error", message: e.message });
-//   }
-// };
+const GetUsers = async (req, res) => {
+  try {
+    const users = await UserModel.find();
+    console.log(users);
+    res.status(200).json({ status: "Success", User: users });
+  } catch (e) {
+    res.status(500).json({ status: "Error", message: e.message });
+  }
+};
 
 const UsersCount = async (req, res) => {
   try {
@@ -73,4 +72,4 @@ const FilteredUsers = async (req, res) => {
   }
 };
 
-module.exports = { Users, UsersCount, DeleteUsers, FilteredUsers };
+module.exports = { Users, UsersCount, DeleteUsers, FilteredUsers, GetUsers };
