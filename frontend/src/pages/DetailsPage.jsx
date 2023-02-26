@@ -43,6 +43,7 @@ const DetailsPage = () => {
         <Button onClick={() => handleClick({ type: "age>50" })}>
           Age greater than 50
         </Button>
+        <Button onClick={() => handleClick({ type: "India" })}>Indian</Button>
       </Flex>
       <br />
       <TableContainer>
