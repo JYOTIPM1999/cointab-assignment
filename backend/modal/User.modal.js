@@ -25,7 +25,7 @@ const UserSchema = mongoose.Schema({
       description: { type: String },
     },
   },
-  email: { type: { type: String } },
+  email: { type: String },
   login: {
     uuid: { type: String },
     username: { type: String },

@@ -32,7 +32,7 @@ const HomePage = () => {
       setAllUsers(res.data.User);
       setCount(res.data.User.length);
     });
-  }, [count]);
+  }, []);
 
   const toast = useToast();
   const Toasting = (title, desc, pos, status) => {
@@ -57,13 +57,11 @@ const HomePage = () => {
     }
     setLoading(true);
     axios.post("http://localhost:8080/users/savedata").then((res) => {
-      // console.log(res.data.usr);
-      // setAllUsers(res.data.usr);
       setLoading(false);
       setCount(res.data.count);
       Toasting(
         "Successfully Fetched",
-        `count is ${res.data.count}`,
+        `You have ${res.data.count} users`,
         "top",
         "success"
       );

@@ -18,22 +18,29 @@ import Pagination from "../components/Pagination";
 
 const DetailsPage = () => {
   const navigate = useNavigate();
-  const { allUsers, setAllUsers } = useContext(userContext);
-  console.log(allUsers);
+  const { allUsers, setAllUsers, setQuery } = useContext(userContext);
 
   const handleNavigate = () => {
     navigate("/");
   };
+
+  const handleClick = (el) => {
+    // console.log(el);
+    setQuery(el);
+  };
+
   return (
     <>
       <Button onClick={handleNavigate}>Return to HomePage</Button>
       <br />
       <br />
       <Flex justifyContent={"space-around"}>
-        <Button>Men</Button>
-        <Button>Women</Button>
-        <Button>Age less than 40</Button>
-        <Button>Age greater than 50</Button>
+        <Button onClick={() => handleClick("male")}>Men</Button>
+        <Button onClick={() => handleClick("female")}>Women</Button>
+        <Button onClick={() => handleClick("age<40")}>Age less than 40</Button>
+        <Button onClick={() => handleClick("age>50")}>
+          Age greater than 50
+        </Button>
       </Flex>
       <br />
       <TableContainer>
@@ -41,20 +48,34 @@ const DetailsPage = () => {
           <Thead>
             <Tr>
               <Th>Profile</Th>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
+              <Th>Name</Th>
+              <Th>Gender</Th>
+              <Th>Age</Th>
+              <Th>Email</Th>
+              <Th>Country</Th>
+              <Th>State</Th>
+              <Th>Phone</Th>
             </Tr>
           </Thead>
           <Tbody>
-            <Tr>
-              <Td>
-                <Image src="" alt="image" />
-              </Td>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
+            {allUsers.map((el, i) => {
+              return (
+                <Tr key={el._id}>
+                  <Td>
+                    <Image src={el.picture.medium} alt="image" />
+                  </Td>
+                  <Td>
+                    {el.name.title} {el.name.first} {el.name.last}
+                  </Td>
+                  <Td>{el.gender}</Td>
+                  <Td>{el.registered.age}</Td>
+                  <Td>{el.email}</Td>
+                  <Td>{el.location.country}</Td>
+                  <Td>{el.location.state}</Td>
+                  <Td>{el.phone}</Td>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>

@@ -8,10 +8,13 @@ const ContextProvider = ({ children }) => {
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [deleteUsers, setDeleteUsers] = useState(false);
+  const [pages, setPages] = useState(0);
+  const [page, setPage] = useState(0);
+  const [query, setQuery] = useState({});
 
   useEffect(() => {
     axios.get("http://localhost:8080/users/getusers").then((res) => {
-      setAllUsers(res.data.User);
+      // setAllUsers(res.data.User);
       setCount(res.data.User.length);
     });
   }, []);
@@ -27,6 +30,12 @@ const ContextProvider = ({ children }) => {
         setDeleteUsers,
         count,
         setCount,
+        pages,
+        setPages,
+        page,
+        setPage,
+        query,
+        setQuery,
       }}
     >
       {children}

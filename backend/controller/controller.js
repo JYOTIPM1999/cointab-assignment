@@ -4,7 +4,7 @@ const { userData } = require("../utilities/userData");
 
 const Users = async (req, res) => {
   try {
-    userData("https://randomuser.me/api/?results=80")
+    userData("https://randomuser.me/api/?results=100")
       .then((data) => UserModel.insertMany(data))
       .then(() => UserModel.count())
       .then((data) => res.status(200).json({ status: "Success", count: data }));
@@ -57,15 +57,16 @@ const FilteredUsers = async (req, res) => {
   }
 
   try {
+    console.log(filterInput);
     const count = await UserModel.find(filterInput).count();
 
-    const FilteredUsers = await UserModel.find(filterInput)
+    const filterUsers = await UserModel.find(filterInput)
       .skip(req.params.page)
       .limit(10);
     res.json({
-      FilteredUsers,
+      filterUsers,
       count,
-      pages: Math.floor(count / 10),
+      pagesCount: Math.floor(count / 10),
     });
   } catch (e) {
     res.status(500).json({ status: "Error", message: e.message });
