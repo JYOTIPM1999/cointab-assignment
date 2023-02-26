@@ -31,7 +31,10 @@ const Pagination = () => {
 
   useEffect(() => {
     axios
-      .post(`http://localhost:8080/users/filter/${page * 10}`, query)
+      .post(
+        `https://cointab-for-backend.up.railway.app/users/filter/${page * 10}`,
+        query
+      )
       .then((res) => {
         setAllUsers(res.data.filterUsers);
         // console.log(res.data.filterUsers);

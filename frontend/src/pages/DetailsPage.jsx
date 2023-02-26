@@ -37,7 +37,7 @@ const DetailsPage = () => {
       <Flex justifyContent={"space-around"}>
         <Button onClick={() => handleClick({ type: "male" })}>Men</Button>
         <Button onClick={() => handleClick({ type: "female" })}>Women</Button>
-        <Button onClick={() => handleClick({ type: "age<40" })}>
+        <Button onClick={() => handleClick({ type: "age<45" })}>
           Age less than 40
         </Button>
         <Button onClick={() => handleClick({ type: "age>50" })}>

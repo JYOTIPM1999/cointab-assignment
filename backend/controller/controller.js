@@ -51,10 +51,10 @@ const FilteredUsers = async (req, res) => {
     filterInput = { gender: "female" };
   } else if (req.body.type == "India") {
     filterInput = { "location.country": "India" };
-  } else if (req.body.type == "age>50") {
-    filterInput = { "dob.age": { $gt: 50 } };
-  } else if (req.body.type == "age<40") {
-    filterInput = { "dob.age": { $lt: 40 } };
+  } else if (req.body.type == "age>15") {
+    filterInput = { "dob.age": { $gt: 15 } };
+  } else if (req.body.type == "age<15") {
+    filterInput = { "dob.age": { $lt: 15 } };
   }
 
   try {

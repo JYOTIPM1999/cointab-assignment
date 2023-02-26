@@ -28,10 +28,12 @@ const HomePage = () => {
   } = useContext(userContext);
 
   useEffect(() => {
-    axios.get("http://localhost:8080/users/getusers").then((res) => {
-      setAllUsers(res.data.User);
-      setCount(res.data.User.length);
-    });
+    axios
+      .get("https://cointab-for-backend.up.railway.app/users/getusers")
+      .then((res) => {
+        setAllUsers(res.data.User);
+        setCount(res.data.User.length);
+      });
   }, []);
 
   const toast = useToast();
