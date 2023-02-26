@@ -42,6 +42,7 @@ const DeleteUsers = async (req, res) => {
 };
 
 const FilteredUsers = async (req, res) => {
+  // console.log(req.body.type);
   var filterInput = {};
 
   if (req.body.type == "male") {
@@ -57,8 +58,8 @@ const FilteredUsers = async (req, res) => {
   }
 
   try {
-    console.log(filterInput);
     const count = await UserModel.find(filterInput).count();
+    console.log(count);
 
     const filterUsers = await UserModel.find(filterInput)
       .skip(req.params.page)

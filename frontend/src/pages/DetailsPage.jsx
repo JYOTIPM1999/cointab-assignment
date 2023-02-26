@@ -35,10 +35,12 @@ const DetailsPage = () => {
       <br />
       <br />
       <Flex justifyContent={"space-around"}>
-        <Button onClick={() => handleClick("male")}>Men</Button>
-        <Button onClick={() => handleClick("female")}>Women</Button>
-        <Button onClick={() => handleClick("age<40")}>Age less than 40</Button>
-        <Button onClick={() => handleClick("age>50")}>
+        <Button onClick={() => handleClick({ type: "male" })}>Men</Button>
+        <Button onClick={() => handleClick({ type: "female" })}>Women</Button>
+        <Button onClick={() => handleClick({ type: "age<40" })}>
+          Age less than 40
+        </Button>
+        <Button onClick={() => handleClick({ type: "age>50" })}>
           Age greater than 50
         </Button>
       </Flex>
